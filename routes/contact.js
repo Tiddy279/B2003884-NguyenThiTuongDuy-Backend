@@ -1,30 +1,18 @@
 const express = require('express')
 const router = express.Router()
 
-router.post('/', (req, res) => {
-    res.send('Post /api/contact')
-})
-router.get('/', (req, res) => {
-    res.send('Get /api/contacts')
-})
-router.delete('/', (req, res) => {
-    res.send('Delete /api/contacts')
-})
+const { createcontact, getallcontact, deleteallcontact, getfavoritecontact, putupdatecontact, deletecontact } = require('../controllers/contact.controller')
 
-router.get('/favorite', (req, res) => {
-    res.send('Get /api/contacts/favorite')
-})
+router.post('/', createcontact)
+router.get('/', getallcontact)
+router.delete('/', deleteallcontact)
 
-router.get('/:id', (req, res) => {
-    res.send('Get /api/contacts/' + req.params.id)
-})
+router.get('/favorite', getfavoritecontact)
 
-router.put('/:id', (req, res) => {
-    res.send('Get /api/contacts/' + req.params.id)
-})
+router.get('/:id', putupdatecontact)
 
-router.delete('/:id', (req, res) => {
-    res.send('Get /api/contacts/' + req.params.id)
-})
+router.put('/:id', putupdatecontact)
+
+router.delete('/:id', deletecontact)
 
 module.exports = router
