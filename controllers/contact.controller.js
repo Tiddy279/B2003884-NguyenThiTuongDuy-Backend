@@ -1,21 +1,39 @@
+const ContactService = require('../services/contact.service')
+const MONGODB = require('../utils/mongodb.utils')
+
 class ContactController {
-    createcontact(req, res) {
-        res.send('Post /api/contact')
+    async createcontact(req, res) {
+        const contactService = new ContactService(MONGODB.client)
+        await contactService.create(req.body)
+        res.status(201).end()
     }
-    getallcontact(req, res) {
-        res.send('Get /api/contacts')
+    async getallcontact(req, res) {
+        const contactService = new ContactService(MONGODB.client)
+
+        res.send(await contactService.getAll())
     }
-    deleteallcontact(req, res) {
-        res.send('Delete /api/contacts')
+    async deleteallcontact(req, res) {
+        const contactService = new ContactService(MONGODB.client)
+        await contactService.deleteall()
+        res.end()
     }
-    getfavoritecontact(req, res) {
-        res.send('Get /api/contacts/favorite')
+    async getfavoritecontact(req, res) {
+        const contactService = new ContactService(MONGODB.client)
+        res.send(await contactService.getfavoritecontact())
     }
-    putupdatecontact(req, res) {
-        res.send('Get /api/contacts/' + req.params.id)
+    async putupdatecontact(req, res) {
+        const contactService = new ContactService(MONGODB.client)
+        await contactService.putupdatecontact(req.params.id, req.body)
+        res.end()
     }
-    deletecontact(req, req) {
-        res.send('Get /api/contacts/' + req.params.id)
+    async getacontact(req, res) {
+        const contactService = new ContactService(MONGODB.client)
+        res.send(await contactService.getacontact(req.params.id))
+    }
+    async deletecontact(req, res) {
+        const contactService = new ContactService(MONGODB.client)
+        await contactService.deletecontact(req.params.id)
+        res.end()
     }
 }
 module.exports = new ContactController()
