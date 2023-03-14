@@ -33,7 +33,7 @@ class ContactController {
     async deletecontact(req, res) {
         const contactService = new ContactService(MONGODB.client)
         await contactService.deletecontact(req.params.id)
-        res.end()
+        res.end() // ko có j gửi về client
     }
 }
 module.exports = new ContactController()
